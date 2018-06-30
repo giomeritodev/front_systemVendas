@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ROUTES } from './app.routes';
   imports: [
     BrowserModule,
     HttpClientModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [

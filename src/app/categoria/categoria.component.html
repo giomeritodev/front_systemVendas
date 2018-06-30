@@ -1,14 +1,14 @@
 <div class="categoriaContainer">
   <h3>Cadastro de Categorias</h3>
 
-  <form>
+  <form method="POST" (ngSubmit)="criar()" [formGroup]="categoriaForm">
 
     <label>Nome</label>
     <br>
-    <input type="text" class="inputNameCategoria" name="nome" />
+    <input type="text" class="inputNameCategoria" name="nome" formControlName="nome"/>
     <br>
     <br>
-    <button type="submit" class="categoriaBtn">Salvar</button>
+    <button type="submit" class="categoriaBtn" [disabled]="categoriaForm.invalid">Salvar</button>
     <br>
     <br>
   </form>
@@ -16,12 +16,12 @@
   <table>
     <tr>
       <th>#</th>
-      <th>Nome</th>      
+      <th>Nome</th>
     </tr>
     <tr *ngFor="let cat of categorias">
       <td>{{cat.id}}</td>
       <td>{{cat.nome}}</td>
     </tr>
   </table>
-  
+
 </div>

@@ -15,4 +15,10 @@ export class CategoriaService {
        return this.http.get<CategoriaDTO[]>(`${API_CONFIG.baseURL}/categorias`);
     }
     
+    criar(categoria: CategoriaDTO){
+        return this.http.post(`${API_CONFIG.baseURL}/categorias`, categoria, {
+            observe: 'response',
+            responseType: 'text'
+        });
+    }
 }
