@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -13,7 +14,6 @@ export class CategoriaComponent implements OnInit {
 
 
   categorias: CategoriaDTO[];
-  
   categoriaForm: FormGroup;
 
   constructor(
@@ -23,26 +23,47 @@ export class CategoriaComponent implements OnInit {
 
 
   ngOnInit() {
-
     this.configurarFormulario();
     this.findAll();
   }
 
-  configurarFormulario(){
+  configurarFormulario() {
     this.categoriaForm = this.formBuilder.group({
       nome: [null, Validators.required]
     });
   }
 
   findAll() {
-    this.categoriaService.findAll().subscribe(response => this.categorias = response);
+    this.categoriaService.findAll().subscribe(response => {
+      this.categorias = response
+    }, (err: HttpErrorResponse) => {
+      if (err.error instanceof Error) {
+        console.log("Um erro ocorreu!");
+      } else {
+        console.log("API Ausente!");
+      }
+    });
   }
 
   criar() {
     this.categoriaService.criar(this.categoriaForm.value)
       .subscribe(response => {
-        //this.categorias.push(response['content']);
         this.categoriaForm.reset();
+        this.findAll();
+      }, (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log("API não existe!");
+        } else {
+          console.log("Erro ao criar categoria, API Ausente!");
+        }
       });
   }
+
+  alterar(id: string) {
+    this.categoriaService.alterar(id)
+      .subscribe(response => {
+
+      });
+  }
+
 }

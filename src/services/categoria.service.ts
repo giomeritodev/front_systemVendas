@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class CategoriaService {
     
+    categoriaDTO: CategoriaDTO;
+
     constructor(
         public http: HttpClient
     ) { }
@@ -20,5 +22,18 @@ export class CategoriaService {
             observe: 'response',
             responseType: 'text'
         });
+    }
+
+    findById(id: string){
+        return this.http.get(`${API_CONFIG.baseURL}/categorias/${id}`);
+    }
+
+    alterar(id: string){
+        //let headers = new Headers();
+        return this.http.put(`${API_CONFIG.baseURL}/categorias/${id}`, this.categoriaDTO /*{headers: headers}*/);
+    }
+
+    deletar(id: string){
+        return this.http.delete(`${API_CONFIG.baseURL}/categorias/${id}`);
     }
 }
